@@ -1,0 +1,29 @@
+<!-- update_profile.html -->
+{% extends 'base.html' %}
+
+{% block title %}
+Update Profile
+{% endblock title %}
+
+{% block content %}
+<h2>Profile Details</h2>
+<p>
+    <strong>Username:</strong> {{ user.username }}<br>
+    <strong>Email:</strong> {{ user.email }}<br>
+    <strong>Date of Birth:</strong> {{ user.date_of_birth }}<br>
+    <strong>Phone Number:</strong> {{ user.phone_number }}<br>
+    <strong>Address:</strong> {{ user.address }}<br>
+    {% if user.profile_picture %}
+        <strong>Profile Picture:</strong><br>
+        <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width: 200px; max-height: 200px;">
+    {% endif %}
+</p>
+
+<h2>Update Profile</h2>
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Profile</button>
+</form>
+<a href="{% url 'dashboard' %}">Back to Dashboard</a>
+{% endblock content %}

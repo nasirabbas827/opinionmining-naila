@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Add Comment
+{% endblock title %}
+
+{% block css %}
+<style>
+    .post-details {
+        margin-bottom: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .post-details h2 {
+        color: #007bff;
+    }
+
+    .comment {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 15px;
+        margin-bottom: 15px;
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out;
+    }
+
+    .comment:hover {
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .comment strong {
+        color: #007bff;
+    }
+
+    .comment p {
+        margin: 5px 0;
+    }
+
+    form {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f8f9fa;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    form button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        background-color: #007bff;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #0056b3;
+    }
+
+    .alert {
+        padding: 20px;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        background-color: #d1ecf1;
+        border-color: #bee5eb;
+        color: #0c5460;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<div class="post-details">
+    <h2>Add a Comment to "{{ post.title }}"</h2>
+    <p>{{ post.content }}</p>
+</div>
+
+<div>
+    <h3>Previous Comments</h3>
+    {% for comment in comments %}
+        <div class="comment">
+            <p><strong>{{ comment.user.username }}</strong>: {{ comment.comment_text }}</p>
+            <p>Rating: {{ comment.ratings }} | Sentiment: {{ comment.sentiment_label }} ({{ comment.sentiment_score }})</p>
+            <p>Posted at: {{ comment.created_at }}</p>
+        </div>
+    {% endfor %}
+</div>
+
+{% if not user_has_commented %}
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit Comment</button>
+    </form>
+{% else %}
+    <div class="alert">
+        <p>You have already commented on this post.</p>
+    </div>
+{% endif %}
+{% endblock content %}

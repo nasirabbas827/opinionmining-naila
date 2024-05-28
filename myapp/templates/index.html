@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Dashboard
+{% endblock title %}
+
+{% block css %}
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #333;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .posts-container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .post {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        margin-bottom: 20px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
+    }
+
+    .post:hover {
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+    .post h3 {
+        margin-top: 0;
+        color: #007bff;
+    }
+
+    .post p {
+        margin-bottom: 10px;
+        color: #555;
+    }
+
+    .post a {
+        display: inline-block;
+        padding: 10px 20px;
+        margin-top: 10px;
+        color: #fff;
+        background-color: #007bff;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .post a:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock css %}
+
+{% block content %}
+<h2>All Posts</h2>
+<div class="posts-container">
+    {% for post in posts %}
+        <div class="post">
+            <h3>{{ post.title }}</h3>
+            <p>{{ post.content }}</p>
+            <p>Created at: {{ post.created_at }}</p>
+            <a href="{% url 'login' %}">Login To Comment</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock content %}
