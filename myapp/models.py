@@ -14,6 +14,7 @@ class User(models.Model):
         return self.username
 
 
+
 class Post(models.Model):
     title = models.CharField(max_length=255)
     content = models.TextField(blank=True, null=True)
@@ -21,6 +22,24 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+    def average_sentiment_score(self):
+        comments = self.comments.all()
+        if comments:
+            total_score = sum(comment.sentiment_score or 0 for comment in comments)
+            return total_score / comments.count()
+        return 0
+
+    def sentiment_label(self):
+        score = self.average_sentiment_score()
+        if score > 0.5:
+            return 'good'
+        elif score == 0:
+            return 'Neutral'
+        elif score < -0.5:
+            return 'worst'
+        return 'bad'
+
 
 
 class Comment(models.Model):

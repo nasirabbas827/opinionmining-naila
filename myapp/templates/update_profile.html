@@ -1,13 +1,92 @@
-<!-- update_profile.html -->
 {% extends 'base.html' %}
 
 {% block title %}
 Update Profile
 {% endblock title %}
 
+{% block css %}
+<style>
+    body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 20px;
+    }
+
+    h2 {
+        color: #0056b3;
+        margin-bottom: 20px;
+        font-size: 24px;
+        border-bottom: 2px solid #0056b3;
+        padding-bottom: 10px;
+    }
+
+    .details {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .details strong {
+        color: #007bff;
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .details img {
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        margin-top: 10px;
+    }
+
+    form {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    form button {
+        padding: 12px 25px;
+        border: none;
+        border-radius: 8px;
+        background-color: #007bff;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    form button:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+    }
+
+    a {
+        display: inline-block;
+        margin-top: 20px;
+        font-size: 16px;
+        color: #007bff;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    a:hover {
+        color: #0056b3;
+    }
+</style>
+{% endblock css %}
+
 {% block content %}
 <h2>Profile Details</h2>
-<p>
+<p class="details">
     <strong>Username:</strong> {{ user.username }}<br>
     <strong>Email:</strong> {{ user.email }}<br>
     <strong>Date of Birth:</strong> {{ user.date_of_birth }}<br>

@@ -67,7 +67,7 @@ def update_profile(request):
             user = form.save(commit=False)
             new_password = form.cleaned_data.get('new_password')
             if new_password:
-                user.password = new_password  # Ideally, hash the password before saving
+                user.password = new_password  
             user.save()
             messages.success(request, 'Profile updated successfully.')
             return redirect('dashboard')
@@ -82,9 +82,9 @@ def dashboard(request):
     if not email:
         messages.error(request, 'You need to be logged in to view the dashboard.')
         return redirect('login')
-    
+
     user = get_object_or_404(User, email=email)
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-created_at')  
     return render(request, 'dashboard.html', {'posts': posts, 'user': user})
 
 

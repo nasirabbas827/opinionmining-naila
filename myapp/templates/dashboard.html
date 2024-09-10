@@ -64,6 +64,24 @@ Dashboard
         background-color: #0056b3;
         transform: translateY(-2px);
     }
+
+    .post.good {
+        border-color: #28a745;
+        border-radius: 20px;
+        border-width: 5px;
+    }
+
+    .post.bad {
+        border-color: #ffc107;
+        border-radius: 20px;
+        border-width: 5px;
+    }
+
+    .post.worst {
+        border-color: #dc3545;
+        border-radius: 20px;
+        border-width: 5px;
+    }
 </style>
 {% endblock css %}
 
@@ -71,16 +89,13 @@ Dashboard
 <h2>All Posts</h2>
 <div class="posts-container">
     {% for post in posts %}
-        <div class="post">
+        <div class="post {{ post.sentiment_label }}">
             <h3>{{ post.title }}</h3>
             <p>{{ post.content }}</p>
             <p>Created at: {{ post.created_at }}</p>
+            <p>Sentiment: {{ post.sentiment_label|capfirst }}</p>
             <a href="{% url 'add_comment' post.id %}">Add Comment</a>
-
         </div>
     {% endfor %}
 </div>
 {% endblock content %}
-
-
-
